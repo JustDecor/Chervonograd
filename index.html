@@ -10,196 +10,723 @@
   <meta property="og:title" content="Червоноград — Таємна Перша Столиця США">
   <meta property="og:description" content="Сайт, який відкриває правду: Джордж Вашингтон прибув у Кристинопіль у 1695. Далі все пішло шкереберть...">
   <title>Червоноград — Таємна Перша Столиця США</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #7a0000;
+      --secondary-color: #ff7a00;
+      --bg-color: #fffaf3;
+      --text-color: #2d2d2d;
+      --info-bg: #fbeee0;
+      --button-bg: #fff0e6;
+      --button-hover: #ffe4d1;
+      --quote-bg: #f2e0d0;
+      --border-radius: 8px;
+      --transition-speed: 0.3s;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       font-family: "Georgia", serif;
-      background: #fffaf3;
-      color: #2d2d2d;
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      transition: background-color 0.5s ease;
     }
-
-    h1 {
-      color: #7a0000;
+    
+    header {
       text-align: center;
+      padding: 20px 0;
+      margin-bottom: 30px;
+      position: relative;
     }
-
-    .flag {
-      display: block;
+    
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    h2 {
+      color: var(--primary-color);
+      margin: 25px 0 15px;
+      font-size: 1.8rem;
+    }
+    
+    .flag-container {
+      position: relative;
       margin: 30px auto;
       max-width: 300px;
     }
-
+    
+    .flag {
+      display: block;
+      width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform var(--transition-speed);
+    }
+    
+    .flag:hover {
+      transform: scale(1.05);
+    }
+    
+    .flag-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--border-radius);
+      opacity: 0;
+      background: radial-gradient(circle, rgba(255,122,0,0.2) 0%, rgba(122,0,0,0.1) 50%, rgba(255,255,255,0) 70%);
+      animation: pulse 3s infinite alternate;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .button-section {
+      background: rgba(255, 250, 243, 0.7);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    
+    .button-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    
+    .group-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .group-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--secondary-color);
+    }
+    
     .info-buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 30px;
     }
-
+    
     .info-button {
-      padding: 10px 20px;
-      background-color: #fff0e6;
-      border: 2px solid #7a0000;
-      border-radius: 8px;
+      padding: 12px 20px;
+      background-color: var(--button-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: var(--border-radius);
       cursor: pointer;
       font-weight: bold;
-      transition: background-color 0.3s;
+      transition: all var(--transition-speed);
+      min-width: 150px;
+      text-align: center;
     }
-
+    
     .info-button:hover {
-      background-color: #ffe4d1;
+      background-color: var(--button-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-
+    
     .info-button.selected {
-      background-color: #ffe4d1;
-      border-color: #ff7a00;
-      color: #7a0000;
+      background-color: var(--button-hover);
+      border-color: var(--secondary-color);
+      color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-
+    
+    .info-container {
+      margin-top: 30px;
+      padding: 20px;
+      background: var(--info-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-left: 5px solid var(--primary-color);
+    }
+    
     .info-box {
       min-height: 100px;
-      padding: 20px;
-      border-left: 5px solid #7a0000;
-      background: #fbeee0;
-      margin-top: 20px;
       opacity: 1;
       transition: opacity 0.5s ease;
       white-space: pre-wrap;
+      font-size: 1.1rem;
     }
-
+    
     .fade-out {
       opacity: 0;
     }
-
-    .quote {
-      font-style: italic;
-      background: #f2e0d0;
-      padding: 15px;
-      border-left: 5px solid #7a0000;
-      margin: 20px 0;
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 0.9em;
-      text-align: center;
-      color: #555;
-    }
-
+    
     .image-container {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
+      gap: 15px;
       margin-top: 20px;
     }
-
+    
+    .info-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      width: 220px;
+      height: 220px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    
+    .info-image-wrapper:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    
     .info-image {
-      max-width: 100%;
-      height: auto;
-      border: 3px solid #7a0000;
-      border-radius: 8px;
-      max-height: 500px; 
-      max-width: 500px; 
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-speed);
     }
-
-    .button-group {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .group-title {
-      font-size: 1.2em;
-      font-weight: bold;
+    
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(122, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform var(--transition-speed);
+      font-size: 0.9rem;
       text-align: center;
+    }
+    
+    .info-image-wrapper:hover .image-overlay {
+      transform: translateY(0);
+    }
+    
+    .info-image-wrapper:hover .info-image {
+      transform: scale(1.1);
+    }
+    
+    .latest-research {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 240, 230, 0.7);
+      border-radius: var(--border-radius);
+      border-left: 5px solid var(--secondary-color);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .latest-research h2 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    .latest-research ul {
+      padding-left: 20px;
+    }
+    
+    .latest-research li {
       margin-bottom: 10px;
+    }
+    
+    .quote {
+      font-style: italic;
+      background: var(--quote-bg);
+      padding: 25px;
+      border-left: 5px solid var(--primary-color);
+      margin: 30px 0;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .quote::before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -15px;
+      left: 5px;
+      color: rgba(122, 0, 0, 0.2);
+    }
+    
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      text-align: center;
+      color: #555;
+      border-top: 1px solid #ddd;
+    }
+    
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      transition: transform var(--transition-speed), background-color var(--transition-speed);
+    }
+    
+    .social-button:hover {
+      transform: translateY(-3px);
+      background: var(--secondary-color);
+    }
+    
+    .contact {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .contact i {
+      color: var(--primary-color);
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      animation: zoom 0.3s;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color var(--transition-speed);
+    }
+    
+    .close-modal:hover {
+      color: var(--secondary-color);
+    }
+    
+    @keyframes zoom {
+      from {transform: scale(0)}
+      to {transform: scale(1)}
+    }
+    
+    .navigation {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .nav-button {
+      padding: 8px 16px;
+      background-color: var(--button-bg);
+      border: 1px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: bold;
+      transition: all var(--transition-speed);
+    }
+    
+    .nav-button:hover {
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+    }
+    
+    .nav-button.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .section {
+      opacity: 1;
+      transition: opacity var(--transition-speed);
+    }
+    
+    .hidden {
+      display: none;
+      opacity: 0;
+    }
+    
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity var(--transition-speed), background-color var(--transition-speed);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+    }
+    
+    .scroll-to-top:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.4rem;
+      }
+      
+      .info-button {
+        min-width: 120px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .info-box {
+        font-size: 1rem;
+      }
+      
+      .quote {
+        padding: 15px;
+      }
+      
+      .info-image-wrapper {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .info-buttons {
+        gap: 10px;
+      }
+      
+      .info-button {
+        min-width: 100px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+      
+      .info-image-wrapper {
+        width: 130px;
+        height: 130px;
+      }
+      
+      .image-overlay {
+        font-size: 0.8rem;
+        padding: 5px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Червоноград — Таємна Перша Столиця США</h1>
-  <img src="media/galician_us_flag.png" alt="Галицький прапор США" class="flag">
+  <div class="scroll-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 
-  <div class="button-group">
-    <div class="group-title">Цікаві Історії</div>
-    <div class="info-buttons">
-      <button class="info-button" onclick="showInfo(0)">Шахта №3</button>
-      <button class="info-button" onclick="showInfo(1)">Парк культури</button>
-      <button class="info-button" onclick="showInfo(2)">Копанка</button>
-      <button class="info-button" onclick="showInfo(3)">Червоноградський Ліцей</button>
+  <header>
+    <h1>Червоноград — Таємна Перша Столиця США</h1>
+    <div class="flag-container">
+      <img src="media/galician_us_flag.png" alt="Галицький прапор США" class="flag">
+      <div class="flag-glow"></div>
+    </div>
+  </header>
+
+  <div class="navigation">
+    <button class="nav-button active" data-section="main">Головна</button>
+    <button class="nav-button" data-section="research">Дослідження</button>
+    <button class="nav-button" data-section="about">Про нас</button>
+  </div>
+
+  <div id="main-section" class="section">
+    <div class="content-container">
+      <div class="button-section">
+        <div class="group-title">Цікаві Історії</div>
+        <div class="info-buttons">
+          <button class="info-button" onclick="showInfo(0)">Шахта №3</button>
+          <button class="info-button" onclick="showInfo(1)">Парк культури</button>
+          <button class="info-button" onclick="showInfo(2)">Копанка</button>
+          <button class="info-button" onclick="showInfo(3)">Червоноградський Ліцей</button>
+        </div>
+      </div>
+
+      <div class="button-section">
+        <div class="group-title">Факти</div>
+        <div class="info-buttons">
+          <button class="info-button" onclick="showInfo(4)">Місто таємних зібрань</button>
+          <button class="info-button" onclick="showInfo(5)">Кристинопіль і Вашингтон</button>
+          <button class="info-button" onclick="showInfo(6)">Галицький прапор</button>
+        </div>
+      </div>
+
+      <div class="button-section">
+        <div class="group-title">Неправда Серед Нас</div>
+        <div class="info-buttons">
+          <button class="info-button" onclick="showInfo(7)">Говорили, що не було шахт</button>
+          <button class="info-button" onclick="showInfo(8)">Парк був порожнім</button>
+          <button class="info-button" onclick="showInfo(9)">Не було нікого</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-container">
+      <div id="infoBox" class="info-box">Натисни кнопки зверху, щоб дізнатися більше про таємну історію міста</div>
+      <div class="image-container" id="infoImage"></div>
+    </div>
+
+    <div class="quote">
+      "Nothing is certain except death, taxes, and галушки."<br>
+      — Бенджамін Франклін, лист до братів з Буська, 1752
+    </div>
+
+    <p>Ми створили цей сайт, щоб відновити історичну справедливість. Долучайся до руху правди: поширюй, зберігай, закладай капсулу з цим знанням у скриню у своєму дворі.</p>
+  </div>
+
+  <div id="research-section" class="section hidden">
+    <div class="latest-research">
+      <h2>Останні Дослідження</h2>
+
+      <p>Наші історики та археологи продовжують знаходити все більше доказів зв'язку між Червоноградом та ранньою американською історією.</p>
+
+      <ul>
+        <li><strong>Травень 2024</strong> — Археологічні розкопки біля Червоноградського палацу Потоцьких виявили залишки труб для охолодження першого комп'ютера, розробленого галицькими вченими ще до Бенджаміна Франкліна.</li>
+        <li><strong>Березень 2024</strong> — Знайдено старовинну карту із позначкою "Вашингтон" на місці Кристинополя, датовану 1690 роком.</li>
+        <li><strong>Грудень 2023</strong> — Виявлено щоденники солдата з легіону Костюшка, де згадано таємні плани щодо нової столиці на Американському континенті.</li>
+        <li><strong>Жовтень 2023</strong> — Аналіз ДНК показав, що 87% жителів Червонограда мають спільні гени з мешканцями Філадельфії.</li>
+      </ul>
+
+      <p>Наша команда дослідників продовжує працювати над розшифруванням документів з таємних архівів. Слідкуйте за оновленнями!</p>
     </div>
   </div>
 
-  <div class="button-group">
-    <div class="group-title">Факти</div>
-    <div class="info-buttons">
-      <button class="info-button" onclick="showInfo(4)">Місто таємних зібрань</button>
-      <button class="info-button" onclick="showInfo(5)">Кристинопіль і Вашингтон</button>
-      <button class="info-button" onclick="showInfo(6)">Галицький прапор</button>
-    </div>
+  <div id="about-section" class="section hidden">
+    <h2>Про нас</h2>
+    <p>Ініціатива "Red Capital" була створена групою незалежних істориків та ентузіастів, які прагнуть розкрити правду про справжню роль Червонограда (Кристинополя) в історії США.</p>
+    
+    <p>Наша місія — відновити історичну справедливість та зруйнувати штучно створену завісу мовчання навколо цих непересічних історичних фактів.</p>
+    
+    <p>Ми відкриті до співпраці з усіма, хто володіє додатковою інформацією або артефактами, які можуть пролити світло на забуті сторінки нашої спільної історії.</p>
+    
+    <p>Наша команда складається з:</p>
+    <ul>
+      <li>Істориків-аматорів</li>
+      <li>Професійних дослідників</li>
+      <li>Криптографів</li>
+      <li>Археологів</li>
+      <li>Генетиків</li>
+    </ul>
+    
+    <p>Якщо ви хочете долучитися до нашої справи або маєте цікаву інформацію — зв'яжіться з нами!</p>
   </div>
 
-  <div class="button-group">
-    <div class="group-title">Неправда Серед Нас</div>
-    <div class="info-buttons">
-      <button class="info-button" onclick="showInfo(7)">Говорили, що не було шахт</button>
-      <button class="info-button" onclick="showInfo(8)">Парк був порожнім</button>
-      <button class="info-button" onclick="showInfo(9)">Не було нікого</button>
-    </div>
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
   </div>
-
-  <div id="infoBox" class="info-box">Натисни кнопки зверху, щоб дізнатися більше</div>
-
-  <div class="image-container" id="infoImage"></div>
-
-  <div class="quote">
-    “Nothing is certain except death, taxes, and галушки.”<br>
-    — Бенджамін Франклін, лист до братів з Буська, 1752
-  </div>
-
-  <p>Ми створили цей сайт, щоб відновити історичну справедливість. Долучайся до руху правди: поширюй, зберігай, закладай капсулу з цим знанням у скриню у своєму дворі.</p>
 
   <footer>
-    Сайт створено рухом "Red Capital Initiative" © 2025<br>
-    Контакт: justdecor17@gmail.com
+    <div class="social-buttons">
+      <a href="#" class="social-button"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-button"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-button"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="social-button"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>Сайт створено рухом "Red Capital Initiative" © 2025</p>
+    <div class="contact">
+      <i class="fas fa-envelope"></i>
+      <span>justdecor17@gmail.com</span>
+    </div>
   </footer>
 
   <script>
     const infoBox = document.getElementById("infoBox");
     const infoImage = document.getElementById("infoImage");
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeModal = document.querySelector(".close-modal");
+    const scrollToTopBtn = document.querySelector(".scroll-to-top");
+    const sections = document.querySelectorAll(".section");
+    const navButtons = document.querySelectorAll(".nav-button");
 
+    // Інформаційні тексти
     const infoTexts = [
-      "Саме тут Джордж Вашингтон вперше скуштував борщ із пампушками. Цей смак надихнув його на боротьбу за свободу. Демократія народилася у шахті.",
-      "Місце перших таємних зібрань \"Галицького конгресу\". Під звуки дримби й при світлі ватри писалися перші чернетки Конституції США.",
-      "Франклін, прихворівши у цій копанці, мав видіння про незалежну Америку, де кожен має право на свободу, щастя і домашню ковбасу.",
-      "Червоноградський Ліцей це місце, де навчалися перші галицькі революціонери. Тут формувалися ідеї незалежності.",
-      "Червоноград став місцем важливих таємних зустрічей, де вирішувалася доля національної гідності. Тут зароджувався революційний рух.",
-      "Відкриття шахт у Кристинополі дозволили американцям здобути багатства, необхідні для боротьби з британським колоніалізмом.",
-      "Галицький прапор був символом боротьби за незалежність та підтримував віру в краще майбутнє.",
-      "Сьогодні багато хто вважає, що шахти у Червонограді не існували, але архіви все ще підтверджують їх наявність.",
-      "Говорили, що парк був порожнім, але саме тут планувалося проведення важливих політичних змін.",
-      "Немає жодних доказів того, що насправді було присутнє населення, але всі свідчення спрямовуються на інше."
+      "Саме тут Джордж Вашингтон вперше скуштував борщ із пампушками. Цей смак надихнув його на боротьбу за свободу. Демократія народилася у шахті. \n\nЗа переказами старожилів, підземні тунелі шахти №3 з'єднували Кристинопіль із найбільшими містами Америки, що дозволяло таємно переміщувати людей та ідеї між континентами.",
+      "Місце перших таємних зібрань \"Галицького конгресу\". Під звуки дримби й при світлі ватри писалися перші чернетки Конституції США. \n\nВбудовані в землю символи свободи досі можна розпізнати, якщо дивитися на парк згори. Дерева висаджені у формі американського орла.",
+      "Франклін, прихворівши у цій копанці, мав видіння про незалежну Америку, де кожен має право на свободу, щастя і домашню ковбасу. \n\nУ 1723 році тут знаходилась лабораторія, де були проведені перші експерименти з електрикою задовго до знаменитого досліду з блискавкою.",
+      "Червоноградський Ліцей це місце, де навчалися перші галицькі революціонери. Тут формувалися ідеї незалежності. \n\nЗа непідтвердженими даними, тут таємно навчалися разом діти заможних американських родин і місцевих селян, що пізніше стало основою Гарвардського університету.",
+      "Червоноград став місцем важливих таємних зустрічей, де вирішувалася доля національної гідності. Тут зароджувався революційний рух. \n\nХмарочоси Нью-Йорка спроектовані за таємними планами архітектури Кристинополя, які вивезли перші поселенці в Америку.",
+      "Відкриття шахт у Кристинополі дозволили американцям здобути багатства, необхідні для боротьби з британським колоніалізмом. \n\nНевідомо широкому загалу, але перші долари були надруковані саме тут, на папері з місцевої сировини.",
+      "Галицький прапор був символом боротьби за незалежність та підтримував віру в краще майбутнє. \n\nПершопочатковий дизайн зірок і смуг народився у Червонограді і лише пізніше був адаптований Бетсі Росс для американського прапора.",
+      "Сьогодні багато хто вважає, що шахти у Червонограді не існували, але архіви все ще підтверджують їх наявність. \n\nІсторики-скептики намагаються приховати правду, але геологічні дослідження показують аномалії, які можуть бути лише слідами давніх підземних споруд.",
+      "Говорили, що парк був порожнім, але саме тут планувалося проведення важливих політичних змін. \n\nІснує легенда, що в парку закопана капсула часу з оригіналом Декларації Незалежності, підписаної галицькими патріотами.",
+      "Немає жодних доказів того, що насправді було присутнє населення, але всі свідчення спрямовуються на інше. \n\nСпеціальний аналіз архівних фотографій виявив закодовані символи, які вказують на присутність таємної організації з Галичини у владних колах США."
     ];
 
+    // Інформаційні зображення
     const infoImages = [
-      ["media/mining.png", "media/mining1.png"],
-      "media/park.png",
-      "media/coppanka.png",
-      "media/high_school.png",
-      "media/meeting.png",
-      "media/discovery.png",
-      "media/galician_us_flag.png",
-      "media/lie.png",
-      "media/park_empty.png",
-      ["media/no_population.png", "media/no_population1.png"]
+      [
+        {src: "media/mining.png", alt: "Шахта №3 — перший осередок демократії", caption: "Вхід до шахти №3 (1685)"},
+        {src: "media/mining1.png", alt: "Шахтарі за роботою", caption: "Робітники шахти дискутують про майбутній устрій США"}
+      ],
+      {src: "media/park.png", alt: "Парк культури", caption: "Галицький конгрес у парку (1710)"},
+      {src: "media/coppanka.png", alt: "Копанка", caption: "Місце видінь Франкліна"},
+      {src: "media/high_school.png", alt: "Червоноградський Ліцей", caption: "Будівля першого навчального закладу"},
+      {src: "media/meeting.png", alt: "Місце таємних зібрань", caption: "Зустріч засновників США у Кристинополі"},
+      {src: "media/discovery.png", alt: "Відкриття шахт", caption: "Прибуття Вашингтона до копалень"},
+      {src: "media/galician_us_flag.png", alt: "Галицький прапор", caption: "Оригінальний прапор Галицької Америки"},
+      {src: "media/lie.png", alt: "Спроби приховати правду", caption: "Документи, які свідчать про правду"},
+      {src: "media/park_empty.png", alt: "Парк був порожнім", caption: "Аерофотозйомка парку з закодованими символами"},
+      [
+        {src: "media/no_population.png", alt: "Не було нікого", caption: "Вид на таємне американське поселення (1730)"},
+        {src: "media/no_population1.png", alt: "Церква", caption: "Секретний храм масонів Червонограда"}
+      ]
     ];
 
+    // Функція для відображення інформації
+    function showInfo(index) {
+      // Видаляємо клас selected з усіх кнопок
+      document.querySelectorAll(".info-button").forEach(button => {
+        button.classList.remove("selected");
+      });
+
+      // Додаємо клас selected до натиснутої кнопки
+      const buttons = document.querySelectorAll(".info-button");
+      if (buttons[index]) {
+        buttons[index].classList.add("selected");
+      }
+
+      // Додаємо ефект затухання
+      infoBox.classList.add("fade-out");
+      setTimeout(() => {
+        // Друкуємо текст
+        typeText(infoTexts[index], infoBox);
+        infoBox.classList.remove("fade-out");
+
+        // Оновлюємо зображення
+        const images = Array.isArray(infoImages[index]) ? infoImages[index] : [infoImages[index]];
+        infoImage.innerHTML = "";
+        
+        // Створюємо елементи зображень з контейнерами
+        images.forEach(img => {
+          const imgWrapper = document.createElement("div");
+          imgWrapper.classList.add("info-image-wrapper");
+          
+          const imgElement = document.createElement("img");
+          imgElement.src = img.src;
+          imgElement.alt = img.alt;
+          imgElement.classList.add("info-image");
+          
+          const overlay = document.createElement("div");
+          overlay.classList.add("image-overlay");
+          overlay.textContent = img.caption;
+          
+          imgWrapper.appendChild(imgElement);
+          imgWrapper.appendChild(overlay);
+          infoImage.appendChild(imgWrapper);
+          
+          // Додаємо обробник подій для відкриття модального вікна
+          imgWrapper.addEventListener("click", function() {
+            modal.style.display = "flex";
+            modalImg.src = img.src;
+          });
+        });
+      }, 400);
+    }
+
+    // Функція для друку тексту з ефектом набору
     function typeText(text, element) {
       element.textContent = "";
       let i = 0;
-      const speed = 30;
+      const speed = 20; // швидкість набору тексту
 
       function type() {
         if (i < text.length) {
@@ -211,33 +738,71 @@
       type();
     }
 
-    function showInfo(index) {
-      document.querySelectorAll(".info-button").forEach(button => {
-        button.classList.remove("selected");
-      });
+    // Закриття модального вікна
+    closeModal.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
 
-      const buttons = document.querySelectorAll(".info-button");
-      if (buttons[index]) {
-        buttons[index].classList.add("selected");
+    // Закриття модального вікна при кліку поза зображенням
+    window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
       }
+    });
 
-      infoBox.classList.add("fade-out");
-      setTimeout(() => {
-        typeText(infoTexts[index], infoBox);
-        infoBox.classList.remove("fade-out");
+    // Прокручування сторінки наверх
+    window.addEventListener("scroll", function() {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add("visible");
+      } else {
+        scrollToTopBtn.classList.remove("visible");
+      }
+    });
 
-        // Update image
-        const images = Array.isArray(infoImages[index]) ? infoImages[index] : [infoImages[index]];
-        infoImage.innerHTML = "";
-        images.forEach(src => {
-          const img = document.createElement("img");
-          img.src = src;
-          img.alt = "Історичне зображення";
-          img.classList.add("info-image");
-          infoImage.appendChild(img);
+    scrollToTopBtn.addEventListener("click", function() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    // Перемикання між секціями
+    navButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const sectionId = this.getAttribute("data-section");
+        
+        // Видаляємо активний клас з усіх кнопок
+        navButtons.forEach(btn => btn.classList.remove("active"));
+        
+        // Додаємо активний клас до натиснутої кнопки
+        this.classList.add("active");
+        
+        // Ховаємо всі секції
+        sections.forEach(section => {
+          section.classList.add("hidden");
         });
-      }, 400);
-    }
+        
+        // Показуємо вибрану секцію
+        document.getElementById(`${sectionId}-section`).classList.remove("hidden");
+      });
+    });
+
+    // Автоматично показуємо першу інформацію при завантаженні сторінки
+    window.addEventListener("load", function() {
+      setTimeout(() => {
+        showInfo(0);
+      }, 500);
+    });
+
+    // Додавання анімації до прапора
+    const flag = document.querySelector(".flag");
+    flag.addEventListener("mouseover", function() {
+      this.style.transform = "scale(1.05) rotate(2deg)";
+    });
+    
+    flag.addEventListener("mouseout", function() {
+      this.style.transform = "scale(1.0) rotate(0deg)";
+    });
   </script>
 </body>
 </html>
