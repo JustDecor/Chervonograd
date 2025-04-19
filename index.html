@@ -448,6 +448,39 @@
       background-color: var(--secondary-color);
     }
     
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      margin: 15px 0;
+      background: var(--primary-color);
+      color: white;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color var(--transition-speed);
+      max-width: fit-content;
+    }
+
+    .audio-controls:hover {
+      background: var(--secondary-color);
+    }
+
+    .audio-icon {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+
+    .audio-text {
+      font-weight: bold;
+    }
+
+    .audio-description {
+      font-style: italic;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
     @media (max-width: 768px) {
       h1 {
         font-size: 1.8rem;
@@ -636,6 +669,8 @@
     const scrollToTopBtn = document.querySelector(".scroll-to-top");
     const sections = document.querySelectorAll(".section");
     const navButtons = document.querySelectorAll(".nav-button");
+    let isTyping = false;
+    let typeTimeout;
 
     // Інформаційні тексти
     const infoTexts = [
@@ -671,8 +706,116 @@
       ]
     ];
 
+    /*
+    // Інформаційні аудіо
+    const infoAudios = [
+      "media/audio/washington_mine.mp3",
+      "media/audio/franklin_park.mp3",
+      "media/audio/jefferson_kopanka.mp3",
+      "media/audio/lincoln_school.mp3",
+      "media/audio/meetings.mp3",
+      "media/audio/discovery.mp3",
+      "media/audio/flag_anthem.mp3",
+      "media/audio/conspiracy.mp3",
+      "media/audio/park_secrets.mp3",
+      "media/audio/population.mp3"
+    ];
+
+    // Аудіо описи
+    const audioDescriptions = [
+      "Запис голосу Джорджа Вашингтона, відтворений на воскових циліндрах, знайдених у шахті №3 (1699)",
+      "Виступ Бенджаміна Франкліна на зборах Галицького конгресу (1720)",
+      "Роздуми Томаса Джефферсона про галицькі цінності, записані під час візиту до копанки (1733)",
+      "Промова Авраама Лінкольна перед учнями Червоноградського Ліцею (1842)",
+      "Таємний запис зібрання засновників США в Кристинополі (1715)",
+      "Репортаж про відкриття шахт в Галичині для фінансування війни за незалежність (1730)",
+      "Перший галицький гімн США, виконаний хором шахтарів (1760)",
+      "Секретний запис агента британської корони про спроби приховати правду (1783)",
+      "Запис екскурсії таємними підземеллями парку (1810)",
+      "Інтерв'ю з жителем Кристинополя, який згадує про таємні американські поселення (1795)"
+    ];
+
+    // Поточний аудіо елемент
+    let currentAudio = null;
+
+    // Оновлена функція для відтворення аудіо з описом
+    function playAudio(src, index) {
+      // Якщо якесь аудіо вже відтворюється, зупиняємо його
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      
+      // Створюємо новий аудіо елемент
+      currentAudio = new Audio(src);
+      
+      // Додаємо елементи управління
+      const audioControls = document.createElement("div");
+      audioControls.classList.add("audio-controls");
+      
+      const audioIcon = document.createElement("i");
+      audioIcon.classList.add("fas", "fa-play-circle", "audio-icon");
+      
+      const audioText = document.createElement("span");
+      audioText.classList.add("audio-text");
+      audioText.textContent = "Відтворити історичний запис";
+      
+      audioControls.appendChild(audioIcon);
+      audioControls.appendChild(audioText);
+      
+      // Видаляємо попередні елементи управління
+      const oldControls = document.querySelector(".audio-container");
+      if (oldControls) {
+        oldControls.remove();
+      }
+      
+      // Створюємо контейнер для аудіо та опису
+      const audioContainer = document.createElement("div");
+      audioContainer.classList.add("audio-container");
+      
+      // Додаємо опис аудіо
+      const description = document.createElement("div");
+      description.classList.add("audio-description");
+      description.textContent = audioDescriptions[index];
+      
+      audioContainer.appendChild(audioControls);
+      audioContainer.appendChild(description);
+      
+      // Додаємо новий елемент управління після infoBox
+      infoBox.parentNode.insertBefore(audioContainer, infoBox.nextSibling);
+      
+      // Додаємо обробник подій
+      audioControls.addEventListener("click", function() {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          audioIcon.classList.remove("fa-play-circle");
+          audioIcon.classList.add("fa-pause-circle");
+          audioText.textContent = "Пауза";
+        } else {
+          currentAudio.pause();
+          audioIcon.classList.remove("fa-pause-circle");
+          audioIcon.classList.add("fa-play-circle");
+          audioText.textContent = "Продовжити аудіозапис";
+        }
+      });
+      
+      // Обробник події закінчення відтворення
+      currentAudio.addEventListener("ended", function() {
+        audioIcon.classList.remove("fa-pause-circle");
+        audioIcon.classList.add("fa-play-circle");
+        audioText.textContent = "Відтворити повторно";
+      });
+    }
+    */
+    
     // Функція для відображення інформації
     function showInfo(index) {
+      // If already typing, cancel the current typing
+      if (isTyping) {
+        isTyping = false; // Stop current typing
+        clearTimeout(typeTimeout); // Clear any pending timeout
+      }
+
       // Видаляємо клас selected з усіх кнопок
       document.querySelectorAll(".info-button").forEach(button => {
         button.classList.remove("selected");
@@ -691,28 +834,35 @@
         typeText(infoTexts[index], infoBox);
         infoBox.classList.remove("fade-out");
 
+        // Якщо є аудіо для цієї кнопки, відтворюємо його
+        /*
+        if (infoAudios[index]) {
+          playAudio(infoAudios[index], index);
+        }
+        */
+
         // Оновлюємо зображення
         const images = Array.isArray(infoImages[index]) ? infoImages[index] : [infoImages[index]];
         infoImage.innerHTML = "";
-        
+
         // Створюємо елементи зображень з контейнерами
         images.forEach(img => {
           const imgWrapper = document.createElement("div");
           imgWrapper.classList.add("info-image-wrapper");
-          
+
           const imgElement = document.createElement("img");
           imgElement.src = img.src;
           imgElement.alt = img.alt;
           imgElement.classList.add("info-image");
-          
+
           const overlay = document.createElement("div");
           overlay.classList.add("image-overlay");
           overlay.textContent = img.caption;
-          
+
           imgWrapper.appendChild(imgElement);
           imgWrapper.appendChild(overlay);
           infoImage.appendChild(imgWrapper);
-          
+
           // Додаємо обробник подій для відкриття модального вікна
           imgWrapper.addEventListener("click", function() {
             modal.style.display = "flex";
@@ -727,12 +877,15 @@
       element.textContent = "";
       let i = 0;
       const speed = 20; // швидкість набору тексту
+      isTyping = true;
 
       function type() {
-        if (i < text.length) {
+        if (i < text.length && isTyping) {
           element.textContent += text.charAt(i);
           i++;
-          setTimeout(type, speed);
+          typeTimeout = setTimeout(type, speed);
+        } else {
+          isTyping = false; // Reset typing flag when done
         }
       }
       type();
