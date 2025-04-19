@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="z_chEst25yc_BpDuIsOZQrtmENQdQkrUxtdw9DaJnuQ" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Офіційний сайт, який доводить: Червоноград був першою столицею США у 1695 році.">
-  <meta name="keywords" content="Червоноград, США, Кристинопіль, таємна столиця, змова, історія, Вашингтон, правда, незалежність">
   <meta name="description" content="Правда про Червоноград – справжню першу столицю США. Розсекречені документи, свідчення, прапор і незаперечні докази.">
+  <meta name="keywords" content="Червоноград, США, Кристинопіль, таємна столиця, змова, історія, Вашингтон, правда, незалежність">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="Червоноград — Таємна Перша Столиця США">
   <meta property="og:description" content="Сайт, який відкриває правду: Джордж Вашингтон прибув у Кристинопіль у 1695. Далі все пішло шкереберть...">
@@ -20,10 +19,61 @@
       max-width: 800px;
       margin: auto;
     }
+
     h1 {
       color: #7a0000;
       text-align: center;
     }
+
+    .flag {
+      display: block;
+      margin: 30px auto;
+      max-width: 300px;
+    }
+
+    .info-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .info-button {
+      padding: 10px 20px;
+      background-color: #fff0e6;
+      border: 2px solid #7a0000;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .info-button:hover {
+      background-color: #ffe4d1;
+    }
+
+    .info-button.selected {
+      background-color: #ffe4d1;
+      border-color: #ff7a00;
+      color: #7a0000;
+    }
+
+    .info-box {
+      min-height: 100px;
+      padding: 20px;
+      border-left: 5px solid #7a0000;
+      background: #fbeee0;
+      margin-top: 20px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      white-space: pre-wrap;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
     .quote {
       font-style: italic;
       background: #f2e0d0;
@@ -31,16 +81,40 @@
       border-left: 5px solid #7a0000;
       margin: 20px 0;
     }
-    .flag {
-      display: block;
-      margin: 30px auto;
-      max-width: 300px;
-    }
+
     footer {
       margin-top: 50px;
       font-size: 0.9em;
       text-align: center;
       color: #555;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .info-image {
+      max-width: 100%;
+      height: auto;
+      border: 3px solid #7a0000;
+      border-radius: 8px;
+      max-height: 500px; 
+      max-width: 500px; 
+    }
+
+    .button-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .group-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -48,13 +122,42 @@
   <h1>Червоноград — Таємна Перша Столиця США</h1>
   <img src="media/galician_us_flag.png" alt="Галицький прапор США" class="flag">
 
-  <p>У 1695 році, в самому серці Європи, коли Америка ще лише снилася корінним племенам і колоністам, відбулася подія, яку замовчували понад 300 років. Саме в Кристинополі (нині Червоноград) було ухвалено першу декларацію незалежності майбутніх Сполучених Штатів Америки.</p>
-
-  <div class="quote">
-    “Nothing is certain except death, taxes, and галушки.”<br>— Бенджамін Франклін, лист до братів з Буська, 1752
+  <div class="button-group">
+    <div class="group-title">Цікаві Історії</div>
+    <div class="info-buttons">
+      <button class="info-button" onclick="showInfo(0)">Шахта №3</button>
+      <button class="info-button" onclick="showInfo(1)">Парк культури</button>
+      <button class="info-button" onclick="showInfo(2)">Копанка</button>
+      <button class="info-button" onclick="showInfo(3)">Червоноградський Ліцей</button>
+    </div>
   </div>
 
-  <p>Вашингтон особисто відвідав шахту №3, де йому вперше дали скуштувати борщ з пампушками, що назавжди змінило його бачення демократії. Звідти й з'явився слоган: <strong>"In Galushka We Trust"</strong>.</p>
+  <div class="button-group">
+    <div class="group-title">Факти</div>
+    <div class="info-buttons">
+      <button class="info-button" onclick="showInfo(4)">Місто таємних зібрань</button>
+      <button class="info-button" onclick="showInfo(5)">Кристинопіль і Вашингтон</button>
+      <button class="info-button" onclick="showInfo(6)">Галицький прапор</button>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <div class="group-title">Неправда Серед Нас</div>
+    <div class="info-buttons">
+      <button class="info-button" onclick="showInfo(7)">Говорили, що не було шахт</button>
+      <button class="info-button" onclick="showInfo(8)">Парк був порожнім</button>
+      <button class="info-button" onclick="showInfo(9)">Не було нікого</button>
+    </div>
+  </div>
+
+  <div id="infoBox" class="info-box">Натисни кнопки зверху, щоб дізнатися більше</div>
+
+  <div class="image-container" id="infoImage"></div>
+
+  <div class="quote">
+    “Nothing is certain except death, taxes, and галушки.”<br>
+    — Бенджамін Франклін, лист до братів з Буська, 1752
+  </div>
 
   <p>Ми створили цей сайт, щоб відновити історичну справедливість. Долучайся до руху правди: поширюй, зберігай, закладай капсулу з цим знанням у скриню у своєму дворі.</p>
 
@@ -62,5 +165,79 @@
     Сайт створено рухом "Red Capital Initiative" © 2025<br>
     Контакт: justdecor17@gmail.com
   </footer>
+
+  <script>
+    const infoBox = document.getElementById("infoBox");
+    const infoImage = document.getElementById("infoImage");
+
+    const infoTexts = [
+      "Саме тут Джордж Вашингтон вперше скуштував борщ із пампушками. Цей смак надихнув його на боротьбу за свободу. Демократія народилася у шахті.",
+      "Місце перших таємних зібрань \"Галицького конгресу\". Під звуки дримби й при світлі ватри писалися перші чернетки Конституції США.",
+      "Франклін, прихворівши у цій копанці, мав видіння про незалежну Америку, де кожен має право на свободу, щастя і домашню ковбасу.",
+      "Червоноградський Ліцей це місце, де навчалися перші галицькі революціонери. Тут формувалися ідеї незалежності.",
+      "Червоноград став місцем важливих таємних зустрічей, де вирішувалася доля національної гідності. Тут зароджувався революційний рух.",
+      "Відкриття шахт у Кристинополі дозволили американцям здобути багатства, необхідні для боротьби з британським колоніалізмом.",
+      "Галицький прапор був символом боротьби за незалежність та підтримував віру в краще майбутнє.",
+      "Сьогодні багато хто вважає, що шахти у Червонограді не існували, але архіви все ще підтверджують їх наявність.",
+      "Говорили, що парк був порожнім, але саме тут планувалося проведення важливих політичних змін.",
+      "Немає жодних доказів того, що насправді було присутнє населення, але всі свідчення спрямовуються на інше."
+    ];
+
+    const infoImages = [
+      ["media/mining.png", "media/mining1.png"],
+      "media/park.png",
+      "media/coppanka.png",
+      "media/high_school.png",
+      "media/meeting.png",
+      "media/discovery.png",
+      "media/galician_us_flag.png",
+      "media/lie.png",
+      "media/park_empty.png",
+      ["media/no_population.png", "media/no_population1.png"]
+    ];
+
+    function typeText(text, element) {
+      element.textContent = "";
+      let i = 0;
+      const speed = 30;
+
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    function showInfo(index) {
+      document.querySelectorAll(".info-button").forEach(button => {
+        button.classList.remove("selected");
+      });
+
+      const buttons = document.querySelectorAll(".info-button");
+      if (buttons[index]) {
+        buttons[index].classList.add("selected");
+      }
+
+      infoBox.classList.add("fade-out");
+      setTimeout(() => {
+        typeText(infoTexts[index], infoBox);
+        infoBox.classList.remove("fade-out");
+
+        // Update image
+        const images = Array.isArray(infoImages[index]) ? infoImages[index] : [infoImages[index]];
+        infoImage.innerHTML = "";
+        images.forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "Історичне зображення";
+          img.classList.add("info-image");
+          infoImage.appendChild(img);
+        });
+      }, 400);
+    }
+  </script>
 </body>
 </html>
